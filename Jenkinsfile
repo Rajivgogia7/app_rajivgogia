@@ -32,7 +32,7 @@ pipeline {
                 echo "Deployment pipeline started for - ${BRANCH_NAME} branch"
 
                 echo "Nuget Restore step"
-                bat "dotnet restore"
+                sh "dotnet restore"
             }
         }
 		
@@ -44,7 +44,7 @@ pipeline {
             steps {
 				  echo "Start sonarqube analysis step"
                   withSonarQubeEnv('Test_Sonar') {
-                   bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:sonar-${userName} /n:sonar-${userName} /v:1.0"
+                   sh "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:sonar-${userName} /n:sonar-${userName} /v:1.0"
                   }
             }
         }
@@ -57,8 +57,8 @@ pipeline {
 				  
 				  //Builds the project and all of its dependencies
                   echo "Code Build"
-                  bat 'dotnet build -c Release -o "ProductManagementApi/app/build"'	
-                  bat 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l:trx;LogFileName=ProductManagementApi.xml'	      
+                  sh 'dotnet build -c Release -o "ProductManagementApi/app/build"'	
+                  sh 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l:trx;LogFileName=ProductManagementApi.xml'	      
             }
         }
 
@@ -70,7 +70,7 @@ pipeline {
 			steps {
 				   echo "Stop sonarqube analysis"
                    withSonarQubeEnv('Test_Sonar') {
-                   bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
+                   sh "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
                    }
             }
         }
