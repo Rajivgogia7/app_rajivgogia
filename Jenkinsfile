@@ -32,7 +32,7 @@ pipeline {
                 echo "Deployment pipeline started for - ${BRANCH_NAME} branch"
 
                 echo "Nuget Restore step"
-                sh "dotnet restore"
+                sh 'dotnet restore'
             }
         }
 		
