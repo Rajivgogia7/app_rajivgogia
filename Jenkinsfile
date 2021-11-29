@@ -145,11 +145,11 @@ pipeline {
             }
         }
 
-         stage('Kubernetes Deployment') {
-		  steps{
-		      bat "kubectl apply -f deployment.yaml"
-		  }
-		}
+        // stage('Kubernetes Deployment') {
+		 // steps{
+		     // bat "kubectl apply -f deployment.yaml"
+		 // }
+		//}
    	 }
 
 	 post { 
